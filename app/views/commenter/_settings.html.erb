@@ -1,5 +1,12 @@
 <div class="card mb-50">
   <div class="card-body">
+    <div class="row mb-20">
+      <div class="col">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: <%= @progress_percentage %>%;" aria-valuenow="<%= @progress_percentage %>" aria-valuemin="0" aria-valuemax="100"><%= @progress_percentage %>%</div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <div class="form-check">

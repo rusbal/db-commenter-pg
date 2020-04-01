@@ -9,9 +9,9 @@ class CommenterController < ApplicationController
 
     @table = params[:table]
     @column = params[:column]
-    @comment = params[:comment]
+    @comment = params[:comment].strip
 
-    @comments[@table][@column] = params[:comment]
+    @comments[@table][@column] = @comment
 
     @progress_percentage = compute_progress_percentage
 

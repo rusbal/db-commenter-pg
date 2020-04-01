@@ -1,73 +1,32 @@
 $(function() {
 
-  // Remote form submission
-
-  $("form").on("ajax:success", function(event) {
-    var data, status, xhr, _ref
-    _ref = event.detail, data = _ref[0], status = _ref[1], xhr = _ref[2]
-
-    var response = JSON.parse(xhr.responseText)
-    console.log('Success: ', response)
-
-    var table = response[0]
-    var column = response[1]
-    var comment = response[2]
-
-    $(`#comment-display-${table}-${column}`).html(comment)
-
-  }).on("ajax:error", function(event) {
-    console.log('Ajax error')
-  })
-
-  $('textarea').on('blur', function() {
-    var comment = $(this).parents('.comment').find('.comment-display').html()
-
-    if (/Empty doc/.test(comment) === false) {
-      $(this).val(comment)
-    }
-  })
-
-  // Settings
-
-  $('#editMode').on('click', function() {
-    if ($(this).is(':checked')) {
-      $('.group-row').removeClass('read-mode')
-    } else {
-      $('.group-row').addClass('read-mode')
-      readMode()
-    }
-  })
-
-  $('#showAll').on('click', function() {
-    if ($(this).is(':checked')) {
-      $('tr.hidden-column').show()
-    } else {
-      $('tr.hidden-column').hide()
-    }
-  })
-
-  $('#showForeignId').on('click', function() {
-    if ($(this).is(':checked')) {
-      $('tr.foreign-id').show()
-    } else {
-      $('tr.foreign-id').hide()
-    }
-  })
-
-  $('#expandAll').on('click', function() {
-    if ($(this).is(':checked')) {
-      setTableAsActive($('details'), 'hilite-ccc')
-    } else {
-      $('details').removeAttr('open')
-      $('.row.hilite-ccc').removeClass('hilite-ccc')
-    }
-  })
-
   $('summary').on('click', function() {
     $(this).blur()
 
     hilite($(this).parents('.row'))
   })
+
+  initSettings()
+
+  // Remote form submission
+
+  $("form")
+    .on("ajax:success", function(event) {
+      var data, status, xhr, _ref
+      _ref = event.detail, data = _ref[0], status = _ref[1], xhr = _ref[2]
+
+      var response = JSON.parse(xhr.responseText)
+
+      var table = response[0]
+      var column = response[1]
+      var comment = response[2]
+
+      $(`#comment-display-${table}-${column}`).html(comment.replace(/\n/g, '<br>'))
+      $(`#comment-${table}-${column}`).val(comment).blur()
+    })
+    .on("ajax:error", function(event) {
+      console.log('Ajax error')
+    })
 
   // Edit form
 
@@ -78,36 +37,36 @@ $(function() {
 
     $(this)
       .find('.comment-display')
-      .hide()
+        .hide()
 
-    var textarea = $(this)
+    $(this)
       .find('form')
         .show()
         .find('textarea.form-control')
-
-    // Move cursor to end of input
-    var value = textarea.val()
-    textarea.focus().val('').val(value)
+          .focus()
   })
 
+  var pristine_comment
+
   $('textarea.form-control')
-    .keyup(function (e) {
-      var code = (e.keyCode ? e.keyCode : e.which)
-      if (code === 27) {
+    .on('keyup', function (e) {
+      if (isESC(e)) {
         $(this).closest('form').trigger('reset')
         readMode()
         return true
       }
     })
-    .keypress(function (e) {
-      var code = (e.keyCode ? e.keyCode : e.which);
+    .on('focus', function (e) {
+      pristine_comment = $(this).val()
+    })
+    .on('blur', function (e) {
+      var comment = $(this).val()
 
-      if (code === 13) {
-        $(this).parents('form')
-          .find('input[name=commit]').click()
+      if ($(this).val() === pristine_comment) return
 
-        return true
-      }
+      $(this).parents('form')
+        .find('input[name=commit]')
+          .click()
     })
 
   $('a.foreign-links').on('click', function(evt) {
@@ -158,3 +117,42 @@ function hilite(row, klass = 'hilite') {
     .addClass(klass)
 }
 
+function isESC(evt) {
+  (evt.keyCode ? evt.keyCode : evt.which) === 27
+}
+
+function initSettings() {
+  $('#editMode').on('click', function() {
+    if ($(this).is(':checked')) {
+      $('.group-row').removeClass('read-mode')
+    } else {
+      $('.group-row').addClass('read-mode')
+      readMode()
+    }
+  })
+
+  $('#showAll').on('click', function() {
+    if ($(this).is(':checked')) {
+      $('tr.hidden-column').show()
+    } else {
+      $('tr.hidden-column').hide()
+    }
+  })
+
+  $('#showForeignId').on('click', function() {
+    if ($(this).is(':checked')) {
+      $('tr.foreign-id').show()
+    } else {
+      $('tr.foreign-id').hide()
+    }
+  })
+
+  $('#expandAll').on('click', function() {
+    if ($(this).is(':checked')) {
+      setTableAsActive($('details'), 'hilite-ccc')
+    } else {
+      $('details').removeAttr('open')
+      $('.row.hilite-ccc').removeClass('hilite-ccc')
+    }
+  })
+}

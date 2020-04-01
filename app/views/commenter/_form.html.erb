@@ -12,7 +12,7 @@
         id: "comment-#{table}-#{column}",
         class: "form-control",
         value: @comments[table][column],
-        required: true, autocomplete: 'off' %>
+        autocomplete: 'off' %>
     </div>
     <div style="display: none"><%= f.submit %></div>
   <% end %>

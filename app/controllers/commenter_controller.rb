@@ -2,8 +2,6 @@ class CommenterController < ApplicationController
 
   def index
     load_comments
-
-    @progress_percentage = compute_progress_percentage
   end
 
   def create
@@ -14,6 +12,8 @@ class CommenterController < ApplicationController
     @comment = params[:comment]
 
     @comments[@table][@column] = params[:comment]
+
+    @progress_percentage = compute_progress_percentage
 
     File.open(yaml_file, "w") do |file|
       file.write @comments.to_yaml
@@ -52,22 +52,27 @@ class CommenterController < ApplicationController
         end
       end
     end
+
+    @progress_percentage = compute_progress_percentage
+
   rescue
     puts "Error:", yaml_values
   end
 
   def compute_progress_percentage
-    total = 0
-    with_input = 0
+    field_total = 0
+    field_with_comment = 0
 
     @comments.each do |table, columns|
       columns.each do |column, value|
-        with_input += 1.0 if value.present?
-        total += 1.0
+        next if column =~ /^id$|_id$|created_at|updated_at/
+
+        field_total += 1.0
+        field_with_comment += 1.0 unless value == ''
       end
     end
 
-    ((with_input / total) * 100).to_i
+    ((field_with_comment / field_total) * 100).to_i
   end
 
   def initialize_model_columns(model)

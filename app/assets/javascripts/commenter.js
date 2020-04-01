@@ -22,9 +22,14 @@ $(function() {
       var table = response[0]
       var column = response[1]
       var comment = response[2]
+      var progress_percentage = response[3]
 
       $(`#comment-display-${table}-${column}`).html(comment.replace(/\n/g, '<br>'))
       $(`#comment-${table}-${column}`).val(comment)
+
+      $('.progress').html(
+        `<div class="progress-bar" role="progressbar" style="width: ${progress_percentage}%;" aria-valuenow="${progress_percentage}" aria-valuemin="0" aria-valuemax="100">${progress_percentage}%</div>`
+      )
 
       infocus.focus()
     })

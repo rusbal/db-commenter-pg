@@ -1,5 +1,6 @@
 json.array! [
   @table,
   @column,
-  @comment
+  @comment,
+  @progress_percentage
 ]

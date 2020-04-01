@@ -51,7 +51,10 @@ $(function() {
   $('textarea.form-control')
     .on('keyup', function (e) {
       if (isESC(e)) {
-        $(this).closest('form').trigger('reset')
+        $(this).blur()
+          .closest('form')
+            .trigger('reset')
+
         readMode()
         return true
       }
@@ -67,6 +70,12 @@ $(function() {
       $(this).parents('form')
         .find('input[name=commit]')
           .click()
+    })
+
+  $('.comment-display')
+    .on('dblclick', function(e) {
+      $('#editMode').click()
+      $(this).click()
     })
 
   $('a.foreign-links').on('click', function(evt) {
@@ -118,7 +127,7 @@ function hilite(row, klass = 'hilite') {
 }
 
 function isESC(evt) {
-  (evt.keyCode ? evt.keyCode : evt.which) === 27
+  return (evt.keyCode ? evt.keyCode : evt.which) === 27
 }
 
 function initSettings() {

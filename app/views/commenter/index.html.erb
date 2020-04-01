@@ -1,0 +1,9 @@
+<%= render 'settings' %>
+
+<% @models.each do |model| %>
+  <div class="row group-row read-mode">
+    <div class="col">
+      <%= render 'table', model: model %>
+    </div>
+  </div>
+<% end %>

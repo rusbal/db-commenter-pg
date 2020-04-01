@@ -1,0 +1,24 @@
+<details open>
+  <summary id="<%= model[:name] %>">
+    <%= model[:name] %>
+  </summary>
+
+  <table class="table mt-10">
+    <tbody>
+
+      <% (model[:model].columns rescue []).each do |column| %>
+        <tr class="tr-column <%= tr_class(column.name) %>">
+          <th scope="row">
+            <%= column_name(column.name) %>
+            <div class="small-info">
+              <div class="column_type"><%= column.type %> <%= column_length(column) %>
+              <%= column_default(column) %></div>
+            </div>
+          </th>
+          <td class="td-form"><%= render 'form', table: model[:name], column: column.name %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</details>

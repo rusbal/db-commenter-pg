@@ -1,0 +1,150 @@
+tr.id {
+  color: darkgreen;
+  > * {
+    font-weight: normal !important;
+  }
+}
+
+tr.foreign-id {
+  color: #325ea8;
+  > * {
+    font-weight: normal !important;
+  }
+}
+
+tr.timestamp {
+  color: #8a5858;
+  > * {
+    font-weight: normal !important;
+  }
+}
+
+.no-comment {
+  color: #999;
+}
+
+.small-info {
+  font-size: 0.7em;
+  padding-left: 10px;
+  font-weight: normal;
+}
+
+.column_type {
+  color: #999;
+}
+
+.table {
+  background-color: white;
+}
+
+.hilite {
+  background-color: white;
+}
+
+.hilite-ccc {
+  background-color: #f8f9fa !important;
+}
+
+.table th, .table td {
+  border-top: none !important;
+}
+
+.hidden-column {
+  display: none;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
+}
+
+.tr-column {
+  th {
+    width: 20%;
+  }
+
+  td {
+    width: 80%;
+  }
+}
+
+.mb-100 {
+  margin-bottom: 100px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+textarea {
+  overflow: hidden;
+}
+
+textarea,
+textarea:hover,
+textarea:active,
+textarea:focus {
+  background-color: #e6f2ff !important;
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: none;
+}
+
+.comment-display {
+  background-color: #efefef;
+  padding: 10px;
+  min-height: 2em;
+  border-radius: 4px;
+}
+
+.table th, .table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.group-row {
+  margin-bottom: 50px;
+}
+
+.read-mode {
+  .comment-display {
+    background-color: white;
+    min-height: 2em;
+  }
+
+  .table th, .table td {
+    padding: 0.5rem 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+}
+
+details {
+  summary {
+    background-image: linear-gradient(to right, #2e006b, black);
+    font-size: 1.2em;
+    color: white;
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+    padding-left: 15px !important;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+.hilite {
+  details[open] {
+    summary {
+      background-image: linear-gradient(to right, blue, black);
+    }
+  }
+}
+
+.empty-doc {
+  color: #ddd;
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DbCommenter</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="bg-light mb-100">
+
+    <div class="container">
+      <div class="py-4 text-center">
+        <h2>F&B Database Documentation</h2>
+        <p class="lead">The time spent in documenting the database will pay dividends in programmer productivity.  Do it once, do it well.</p>
+      </div>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>
+

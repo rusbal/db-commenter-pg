@@ -12,6 +12,8 @@ $(function() {
 
   $("form")
     .on("ajax:success", function(event) {
+      var infocus = $(':focus')
+
       var data, status, xhr, _ref
       _ref = event.detail, data = _ref[0], status = _ref[1], xhr = _ref[2]
 
@@ -22,7 +24,9 @@ $(function() {
       var comment = response[2]
 
       $(`#comment-display-${table}-${column}`).html(comment.replace(/\n/g, '<br>'))
-      $(`#comment-${table}-${column}`).val(comment).blur()
+      $(`#comment-${table}-${column}`).val(comment)
+
+      infocus.focus()
     })
     .on("ajax:error", function(event) {
       console.log('Ajax error')

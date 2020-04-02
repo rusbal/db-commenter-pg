@@ -10,7 +10,10 @@
         <% end %>
 
         <%= f.password_field :password, class: "form-control" %>
-        <small id="passwordHelp" class="form-text text-muted">Password: thequickbrownfox</small>
+
+        <% if "2020-04-09".to_date >= Date.current %>
+          <small id="passwordHelp" class="form-text text-muted">Password: thequickbrownfox (hides in 1 week)</small>
+        <% end %>
       </div>
       <%= f.submit "Sign in" %>
     <% end %>

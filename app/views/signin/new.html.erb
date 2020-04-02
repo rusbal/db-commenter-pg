@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-4 offset-4">
+    <%= form_with url: signin_index_path, local: true do |f| %>
+      <div class="form-group">
+
+        <% if defined? @error_message %>
+          <%= @error_message %>
+        <% else %>
+          <%= f.label :password %>
+        <% end %>
+
+        <%= f.password_field :password, class: "form-control" %>
+        <small id="passwordHelp" class="form-text text-muted">Password: thequickbrownfox</small>
+      </div>
+      <%= f.submit "Sign in" %>
+    <% end %>
+  </div>
+</div>
